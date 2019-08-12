@@ -90,7 +90,6 @@ export default class Home extends Component {
             <SearchBar callback={this.searchItems} />
           </div>
         ) : null}
-        <FourColGrid />
         <Spinner />
         <LoadMoreBtn />
       </div>
