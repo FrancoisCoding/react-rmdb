@@ -31,6 +31,7 @@ export default class Home extends Component {
   }
 
   searchItems = searchTerm => {
+    console.log(searchTerm);
     let endpoint = "";
     this.setState({
       movies: [],
@@ -86,7 +87,7 @@ export default class Home extends Component {
               title={this.state.heroImage.original_title}
               text={this.state.heroImage.overview}
             />
-            <SearchBar />
+            <SearchBar callback={this.searchItems} />
           </div>
         ) : null}
         <FourColGrid />
