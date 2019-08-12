@@ -1,7 +1,8 @@
 import React from "react";
+import { IMAGE_BASE_URL } from "../../../config";
 import "./Actor.css";
 
-export default function Actor() {
+export default function Actor(props) {
   return (
     <div>
       <h1>Actor</h1>
