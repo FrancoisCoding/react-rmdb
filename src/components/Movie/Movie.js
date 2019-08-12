@@ -17,9 +17,9 @@ export default class Movie extends Component {
   };
 
   componentDidMount() {
-    if (localStorage.getItem(`${this.props.match.paramas.movieId}`)) {
+    if (localStorage.getItem(`${this.props.match.params.movieId}`)) {
       const state = JSON.parse(
-        localStorage.getItem(`${this.props.match.paramas.movieId}`)
+        localStorage.getItem(`${this.props.match.params.movieId}`)
       );
       this.setState({ ...state });
     } else {
