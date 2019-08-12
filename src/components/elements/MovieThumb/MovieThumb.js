@@ -1,8 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
 import "./MovieThumb.css";
 
-export default function MovieThumb(props) {
+function MovieThumb(props) {
   return (
     <div className="rmdb-moviethumb">
       {props.clickable ? (
@@ -20,3 +21,11 @@ export default function MovieThumb(props) {
     </div>
   );
 }
+
+MovieThumb.propTypes = {
+  image: PropTypes.string,
+  movieId: PropTypes.number,
+  movieName: PropTypes.string
+};
+
+export default MovieThumb;
