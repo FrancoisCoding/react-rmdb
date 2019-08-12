@@ -3,8 +3,8 @@ import "./MovieThumb.css";
 
 export default function MovieThumb(props) {
   return (
-    <div>
-      <h1>MovieThumb</h1>
+    <div className="rmdb-moviethumb">
+      <img src={props.image} alt="Movie Thumbnail" />
     </div>
   );
 }

@@ -1,31 +1,47 @@
-import React, { useState } from "react";
+import React, { Component } from "react";
+import PropTypes from "prop-types";
 import FontAwesome from "react-fontawesome";
 import "./SearchBar.css";
 
-export default function SearchBar(props) {
-  const [value, setValue] = useState("");
+class SearchBar extends Component {
+  state = {
+    value: ""
+  };
+  // Must have this here so we can reset it
+  timeout = null;
 
-  var timeout = null;
+  doSearch = event => {
+    // ES6 Destructuring prop
+    const { callback } = this.props;
 
-  const doSearch = event => {
-    setValue(event.target.value);
-    clearTimeout(timeout);
-    timeout = setTimeout(() => {
-      props.callback(value);
+    this.setState({ value: event.target.value });
+    clearTimeout(this.timeout);
+    // Set a timeout to wait for the user to stop writing
+    // So we don´t have to make unnessesary calls
+    this.timeout = setTimeout(() => {
+      callback(this.state.value);
     }, 500);
   };
-  return (
-    <div className="rmdb-searchbar">
-      <div className="rmdb-searchbar-content">
-        <FontAwesome className="rmdb-fa-search" name="search" size="2x" />
-        <input
-          type="text"
-          className="rmdb-searchbar-input"
-          placeholder="Search Movies..."
-          value={value}
-          onChange={doSearch}
-        />
+
+  render() {
+    // ES6 Destructuring state
+    const { value } = this.state;
+
+    return (
+      <div className="rmdb-searchbar">
+        <div className="rmdb-searchbar-content">
+          <FontAwesome className="rmdb-fa-search" name="search" size="2x" />
+          <input
+            type="text"
+            className="rmdb-searchbar-input"
+            placeholder="Search"
+            onChange={this.doSearch}
+            value={value}
+          />
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
 }
+
+export default SearchBar;
