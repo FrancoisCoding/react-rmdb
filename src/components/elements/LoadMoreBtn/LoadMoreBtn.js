@@ -1,10 +1,10 @@
 import React from "react";
 import "./LoadMoreBtn.css";
 
-export default function LoadMoreBtn(props) {
+export default function LoadMoreBtn({ onClick, text }) {
   return (
-    <div className="rmdb-loadmorebtn" onClick={props.onClick}>
-      <p>{props.text}</p>
+    <div className="rmdb-loadmorebtn" onClick={onClick}>
+      <p>{text}</p>
     </div>
   );
 }
