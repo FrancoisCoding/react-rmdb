@@ -9,13 +9,57 @@ import Spinner from "../elements/Spinner/Spinner";
 import "./Movie.css";
 
 export default class Movie extends Component {
+  state = {
+    movie: null,
+    actors: null,
+    directors: [],
+    loading: false
+  };
+
+  componentDidMount() {
+    this.setState({ loading: true });
+
+    // Movie Data
+    const endpoint = `${API_URL}movie/${
+      this.props.match.params.movieId
+    }?api_key=${API_KEY}&language=en-US`;
+    this.fetchItems(endpoint);
+  }
+
+  fetchItems = endpoint => {
+    fetch(endpoint)
+      .then(res => res.json())
+      .then(res => {
+        console.log(res);
+        if (res.status_code) {
+          this.setState({ loading: false });
+        } else {
+          this.setState({ movie: res }, () => {
+            // Actors Data In SetState Callback Function
+            const endpoint = `${API_URL}movie/${
+              this.props.match.params.movieId
+            }/credits?api_key=${API_KEY}`;
+            fetch(endpoint)
+              .then(res => res.json())
+              .then(res => {
+                const directors = res.crew.filter(
+                  member => member.job === "Director"
+                );
+                this.setState({ actors: res.cast, directors, loading: false });
+              });
+          });
+        }
+      })
+      .catch(err => console.error("Error:", err));
+  };
+
   render() {
     return (
       <div className="rmdb-movie">
         <Navigation />
         <MovieInfo />
         <MovieInfoBar />
-        <FourColGrid />
+        {/* <FourColGrid /> */}
         <Spinner />
       </div>
     );
