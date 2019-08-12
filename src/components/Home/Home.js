@@ -25,8 +25,8 @@ class Home extends Component {
   };
 
   componentDidMount() {
-    if (sessionStorage.getItem("HomeState")) {
-      let state = JSON.parse(sessionStorage.getItem("HomeState"));
+    if (localStorage.getItem("HomeState")) {
+      let state = JSON.parse(localStorage.getItem("HomeState"));
       this.setState({ ...state });
     } else {
       this.setState({ loading: true });
@@ -84,9 +84,8 @@ class Home extends Component {
             totalPages: result.total_pages
           },
           () => {
-            // Remember state for the next mount if we´re not in a search view
-            if (searchTerm === "") {
-              sessionStorage.setItem("HomeState", JSON.stringify(this.state));
+            if (this.state.searchTerm === "") {
+              localStorage.setItem("HomeState", JSON.stringify(this.state));
             }
           }
         );

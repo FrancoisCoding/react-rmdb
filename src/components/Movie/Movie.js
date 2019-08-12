@@ -17,13 +17,19 @@ export default class Movie extends Component {
   };
 
   componentDidMount() {
-    this.setState({ loading: true });
-
-    // Movie Data
-    const endpoint = `${API_URL}movie/${
-      this.props.match.params.movieId
-    }?api_key=${API_KEY}&language=en-US`;
-    this.fetchItems(endpoint);
+    if (localStorage.getItem(`${this.props.match.paramas.movieId}`)) {
+      const state = JSON.parse(
+        localStorage.getItem(`${this.props.match.paramas.movieId}`)
+      );
+      this.setState({ ...state });
+    } else {
+      this.setState({ loading: true });
+      // Movie Data
+      const endpoint = `${API_URL}movie/${
+        this.props.match.params.movieId
+      }?api_key=${API_KEY}&language=en-US`;
+      this.fetchItems(endpoint);
+    }
   }
 
   fetchItems = endpoint => {
@@ -45,7 +51,15 @@ export default class Movie extends Component {
                 const directors = res.crew.filter(
                   member => member.job === "Director"
                 );
-                this.setState({ actors: res.cast, directors, loading: false });
+                this.setState(
+                  { actors: res.cast, directors, loading: false },
+                  () => {
+                    localStorage.setItem(
+                      `${this.props.match.params.movieId}`,
+                      JSON.stringify(this.state)
+                    );
+                  }
+                );
               });
           });
         }
