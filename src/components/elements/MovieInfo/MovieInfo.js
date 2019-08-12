@@ -44,11 +44,15 @@ export default function MovieInfo(props) {
             <p className="rmdb-score">{props.movie.vote_average}</p>
           </div>
           {props.directors.length > 1 ? <h3>DIRECTORS</h3> : <h3>DIRECTOR</h3>}
-          {props.directors.map((element,1)=> {
-            return <p key={i} className="rmdb-director">{element.name}</p>
+          {props.directors.map((element, i) => {
+            return (
+              <p key={i} className="rmdb-director">
+                {element.name}
+              </p>
+            );
           })}
         </div>
-        <FontAwesome className='fa-film' name='file' size="5x" />
+        <FontAwesome className="fa-film" name="film" size="5x" />
       </div>
     </div>
   );
