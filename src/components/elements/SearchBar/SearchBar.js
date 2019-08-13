@@ -18,7 +18,7 @@ class SearchBar extends Component {
     // Set a timeout to wait for the user to stop writing
     // So we don´t have to make unnessesary calls
     this.timeout = setTimeout(() => {
-      callback(this.state.value);
+      callback(false, this.state.value);
     }, 500);
   };
 
